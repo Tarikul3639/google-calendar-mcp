@@ -1,6 +1,6 @@
 {
   "name": "google-calendar-mcp",
-  "version": "0.0.1",
+  "version": "2.0.3",
   "type": "module",
   "description": "Google Calendar MCP server with Google OAuth and per-user access.",
   "private": true,

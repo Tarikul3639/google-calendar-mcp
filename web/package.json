@@ -1,6 +1,6 @@
 {
   "name": "google-calendar-mcp-web",
-  "version": "0.0.1",
+  "version": "2.0.3",
   "type": "module",
   "description": "Web app for Google Calendar MCP sign-in, consent, and account management.",
   "packageManager": "pnpm@12.14.0",
