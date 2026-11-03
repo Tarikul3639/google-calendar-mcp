@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import {
   DEFAULT_DESCRIPTION,
+  SITE_AUTHOR,
   SITE_NAME,
   SITE_URL,
   SOCIAL_IMAGE,
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
   },
 
   keywords: [
-    "Tarikul Open MCP",
+    "Google Calendar MCP",
     "Google Calendar MCP server",
     "Model Context Protocol",
     "ChatGPT Google Calendar integration",
@@ -44,12 +45,12 @@ export const metadata: Metadata = {
     "AI calendar tools",
   ],
 
-  authors: [{ name: "Tarikul Islam", url: "https://tarikul-islam.me/" }],
-  creator: "Tarikul Islam",
   publisher: SITE_NAME,
+  authors: [{ name: SITE_AUTHOR.name, url: SITE_AUTHOR.url }],
+  creator: SITE_AUTHOR.name,
 
   openGraph: {
-    title: "Tarikul Open MCP | Google Calendar for AI Assistants",
+    title: "Google Calendar MCP | Calendar tools for AI assistants",
     description: DEFAULT_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -58,16 +59,16 @@ export const metadata: Metadata = {
     images: [
       {
         url: SOCIAL_IMAGE,
-        width: 1254,
-        height: 1254,
-        alt: "Tarikul Open MCP logo",
+        width: 512,
+        height: 512,
+        alt: "Google Calendar MCP",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Tarikul Open MCP | Google Calendar for AI Assistants",
+    title: "Google Calendar MCP | Calendar tools for AI assistants",
     description: DEFAULT_DESCRIPTION,
     images: [SOCIAL_IMAGE],
   },

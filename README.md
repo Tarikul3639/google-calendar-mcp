@@ -1,26 +1,6 @@
-# Tarikul Open MCP Server
+# Google Calendar MCP
 
 A remote [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that lets compatible AI clients work with a user's Google Calendar. The project has two independently deployable applications: a NestJS API and a Next.js web app for sign-in, consent, account management, and documentation.
-
-## Screenshots
-
-<details>
-<summary>Home page</summary>
-
-![Tarikul Open MCP home page](screenshots/home.png)
-</details>
-
-<details>
-<summary>Account dashboard</summary>
-
-![Account dashboard showing Google Calendar and MCP access](screenshots/dashboard.png)
-</details>
-
-<details>
-<summary>MCP client authorization</summary>
-
-![OAuth consent page for an MCP client](screenshots/oauth_consent.png)
-</details>
 
 ## Features
 
@@ -38,7 +18,6 @@ A remote [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server
 | [`server/`](server/README.md) | NestJS API, PostgreSQL, Prisma, Google OAuth, and MCP tools | [Server README](server/README.md) |
 | [`web/`](web/README.md) | Next.js home page, dashboard, consent page, and docs | [Web README](web/README.md) |
 | [`docs/`](docs/mcp-client-auth-flow.md) | MCP client OAuth and request authentication flow | [MCP client auth flow](docs/mcp-client-auth-flow.md) |
-| `screenshots/` | Screenshots shown above | |
 
 Each app has its own `package.json`, dependencies, and lockfile. Install and run them from their own directories.
 
@@ -102,7 +81,3 @@ The first handles Google sign-in. The second handles Google Calendar authorizati
 - Swagger UI: `http://localhost:5000/api/docs`
 
 For environment variables, OAuth details, and the full tool list, see the [server README](server/README.md). For frontend routes and proxy configuration, see the [web README](web/README.md).
-
-## Author
-
-**Tarikul Islam** — [tarikul-islam.me](https://tarikul-islam.me/)

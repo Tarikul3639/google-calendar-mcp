@@ -1,6 +1,6 @@
 "use client"
 
-import { LoaderCircle, UserRound } from "lucide-react"
+import { CalendarDays, LoaderCircle, UserRound } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Space_Grotesk } from "next/font/google"
@@ -73,24 +73,17 @@ export default function SiteHeader() {
       <div className="flex min-w-0 items-center gap-2.5">
         <Link
           href="/"
-          aria-label="Tarikul's MCP home"
-          className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-md bg-white"
+          aria-label="Google Calendar MCP home"
+          className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-[#F5C518] text-[#000000]"
         >
-          <Image
-            src="/tarikul-open-mcp-logo-yellow-black.png"
-            alt=""
-            width={40}
-            height={40}
-            className="h-full w-full object-contain"
-            priority
-          />
+          <CalendarDays size={23} aria-hidden="true" />
         </Link>
 
         <Link
           href="/"
           className={`${font.className} truncate text-base font-bold tracking-tight`}
         >
-          Tarikul&apos;s MCP
+          Google Calendar MCP
         </Link>
       </div>
 

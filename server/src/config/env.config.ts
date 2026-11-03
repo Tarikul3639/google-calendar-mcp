@@ -8,6 +8,11 @@ export const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(5000),
 
   WEB_ORIGIN: z.string().url().default('http://localhost:3000'),
+  SITE_AUTHOR_NAME: z.string().trim().min(1).default('Tarikul Islam'),
+  SITE_AUTHOR_URL: z
+    .string()
+    .url()
+    .default('https://tarikul-islam.me'),
   CORS_ORIGINS: z.string().default(''),
 
   GOOGLE_CLIENT_ID: z.string().optional(),

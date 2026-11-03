@@ -1,8 +1,7 @@
-export const SITE_URL = "https://tarikul-open-mcp.vercel.app"
+import { config } from "@/config"
 
-export const SITE_NAME = "Tarikul Open MCP"
-
-export const DEFAULT_DESCRIPTION =
-  "Connect ChatGPT and other MCP clients to Google Calendar with Tarikul Open MCP, a hosted server using OAuth and per-user access."
-
-export const SOCIAL_IMAGE = "/tarikul-open-mcp-logo-yellow-black.png"
+export const SITE_URL = config.site.url
+export const SITE_NAME = config.site.name
+export const DEFAULT_DESCRIPTION = config.site.description
+export const SITE_AUTHOR = config.site.author
+export const SOCIAL_IMAGE = "/google-calendar-mcp.svg"

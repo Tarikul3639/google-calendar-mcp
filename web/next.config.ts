@@ -1,7 +1,7 @@
 import type { NextConfig } from "next"
+import { config } from "./config/index"
 
-const backendUrl =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"
+const backendUrl = config.backend.url
 
 const nextConfig: NextConfig = {
   turbopack: {

@@ -2,11 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Check, Copy, Plug } from "lucide-react"
+import { config } from "@/config"
 
-const backendUrl =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000"
-
-const url = `${backendUrl}/mcp`
+const url = config.mcp.endpoint
 
 export default function EndpointConnect() {
   const [copied, setCopied] = useState(false)

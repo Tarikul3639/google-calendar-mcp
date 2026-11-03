@@ -1,5 +1,5 @@
-import { ArrowUpRight } from "lucide-react"
 import Link from "next/link"
+import { config } from "@/config"
 
 const FOOTER_LINKS = [
   { label: "Home", href: "/" },
@@ -31,28 +31,17 @@ export default function SiteFooter() {
                 {label}
               </Link>
             ))}
-            <a
-              href="https://github.com/Tarikul3639/tarikul-open-mcp"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-sm text-[#A5A5A5] transition-colors hover:text-[#F5C518]"
-            >
-              GitHub <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
           </nav>
         </div>
-
-        <div className="sm:text-right">
-          <p className="text-xs font-bold tracking-[0.16em] text-[#F5C518] uppercase">
-            Created by
-          </p>
+        <div className="text-sm text-[#777] sm:text-right">
+          <span>Created by </span>
           <a
-            href="https://tarikul-islam.me/"
+            href={config.site.author.url}
             target="_blank"
             rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-[#EDEDED] transition-colors hover:text-[#F5C518]"
+            className="font-semibold text-[#EDEDED] transition-colors hover:text-[#F5C518]"
           >
-            Tarikul Islam <ArrowUpRight size={14} />
+            {config.site.author.name}
           </a>
         </div>
       </div>

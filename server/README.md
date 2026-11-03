@@ -1,12 +1,6 @@
-# Tarikul Open MCP API
+# Google Calendar MCP Server
 
 NestJS API for Google sign-in, Google Calendar authorization, MCP OAuth, and calendar tools. It uses PostgreSQL through Prisma and serves MCP over Streamable HTTP.
-
-## OAuth consent screen
-
-![MCP client consent page](../screenshots/oauth_consent.png)
-
-The client name shown on the consent page comes from the MCP client's OAuth registration. Users can approve or deny access from this page.
 
 ## Requirements
 
@@ -26,6 +20,8 @@ cp .env.example .env
 
 Configure the values in `.env`:
 
+The API validates environment variables with Zod in `src/config/env.config.ts`. Application code reads validated values through the injectable `EnvService` in `src/config/env.service.ts`.
+
 | Variable | Purpose |
 | --- | --- |
 | `DATABASE_URL` | PostgreSQL connection string |
@@ -33,6 +29,7 @@ Configure the values in `.env`:
 | `GOOGLE_REDIRECT_URI` | Google sign-in callback; local default is `http://localhost:5000/api/auth/callback` |
 | `GOOGLE_CALENDAR_REDIRECT_URI` | Calendar authorization callback; local default is `http://localhost:5000/api/auth/calendar/callback` |
 | `WEB_ORIGIN` | Frontend origin used after OAuth; local default is `http://localhost:3000` |
+| `SITE_AUTHOR_NAME`, `SITE_AUTHOR_URL` | Author identity published in OAuth discovery metadata; defaults to Tarikul Islam and `https://tarikul-islam.me` |
 | `MCP_ISSUER_URL` | Public base URL of this API, used in OAuth discovery and tokens |
 | `MCP_RESOURCE_URL` | Public MCP endpoint URL, normally `<API origin>/mcp` |
 | `MCP_AUTH_SECRET` | Secret used to sign MCP access tokens; use a random value with at least 32 characters |
@@ -103,7 +100,3 @@ For the sequence diagram and the frontend/backend component map, see the [MCP cl
 ## Deployment notes
 
 Deploy the API separately from `web/`. Configure production values for `DATABASE_URL`, Google OAuth credentials and frontend-proxied callback URLs, `WEB_ORIGIN`, `MCP_ISSUER_URL`, `MCP_RESOURCE_URL`, and `MCP_AUTH_SECRET`. Set `CORS_ORIGINS` for any browser origins that call the API directly. Run `pnpm prisma:generate` and `pnpm prisma:migrate` during deployment.
-
-## Author
-
-**Tarikul Islam** — [tarikul-islam.me](https://tarikul-islam.me/)

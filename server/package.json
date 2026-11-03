@@ -1,9 +1,8 @@
 {
-  "name": "server",
+  "name": "google-calendar-mcp",
   "version": "0.0.1",
   "type": "module",
-  "description": "",
-  "author": "tarikul3639",
+  "description": "Google Calendar MCP server with Google OAuth and per-user access.",
   "private": true,
   "license": "MIT",
   "packageManager": "pnpm@12.14.0",

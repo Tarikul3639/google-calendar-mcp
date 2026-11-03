@@ -15,7 +15,7 @@ import { ToolsModule } from './tools/tools.module.js';
 
 // The strategy is the whole configuration — there is no McpModule.
 export const mcp = new McpStrategy({
-  name: 'tarikul-open-mcp',
+  name: 'google-calendar-mcp',
   version: '2.0.0',
   transports: [new StreamableHttpTransport()],
 });

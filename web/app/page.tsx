@@ -8,6 +8,7 @@ import SiteFooter from "@/components/home/site-footer"
 import SiteHeader from "@/components/home/site-header"
 import {
   DEFAULT_DESCRIPTION,
+  SITE_AUTHOR,
   SITE_NAME,
   SITE_URL,
   SOCIAL_IMAGE,
@@ -27,9 +28,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: SOCIAL_IMAGE,
-        width: 1254,
-        height: 1254,
-        alt: "Tarikul Open MCP logo",
+        width: 512,
+        height: 512,
+        alt: "Google Calendar MCP",
       },
     ],
   },
@@ -70,9 +71,10 @@ export default function Home() {
             description: DEFAULT_DESCRIPTION,
             author: {
               "@type": "Person",
-              name: "Tarikul Islam",
-              url: "https://tarikul-islam.me/",
+              name: SITE_AUTHOR.name,
+              url: SITE_AUTHOR.url,
             },
+            publisher: { "@type": "Organization", name: SITE_NAME },
           }),
         }}
       />

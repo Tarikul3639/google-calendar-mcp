@@ -22,6 +22,14 @@ export class EnvService {
     return this.config.get('WEB_ORIGIN', { infer: true });
   }
 
+  get siteAuthorName() {
+    return this.config.get('SITE_AUTHOR_NAME', { infer: true });
+  }
+
+  get siteAuthorUrl() {
+    return this.config.get('SITE_AUTHOR_URL', { infer: true });
+  }
+
   /** Comma-separated CORS_ORIGINS parsed into a list. */
   get corsOrigins(): string[] {
     return this.config

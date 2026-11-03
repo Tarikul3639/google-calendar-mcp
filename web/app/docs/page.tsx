@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: SOCIAL_IMAGE,
-        width: 1254,
-        height: 1254,
-        alt: "Tarikul Open MCP logo",
+        width: 512,
+        height: 512,
+        alt: "Google Calendar MCP",
       },
     ],
   },

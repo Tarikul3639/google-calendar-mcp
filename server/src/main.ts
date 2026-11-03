@@ -67,7 +67,7 @@ async function bootstrap(): Promise<void> {
   });
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle("Tarikul's Personal MCP Server")
+    .setTitle('Google Calendar MCP Server')
     .setDescription('Google Calendar MCP, OAuth, and dashboard API')
     .setVersion('1.0.0')
     .addBearerAuth()
