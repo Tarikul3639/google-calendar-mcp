@@ -121,7 +121,7 @@ function CopyDetail({
       </span>
       <p
         title={value}
-        className="min-w-0 flex-1 text-xs leading-relaxed text-[#B8B8B8] line-clamp-2"
+        className="min-w-0 flex-1 text-xs leading-relaxed text-[#B8B8B8] line-clamp-1"
       >
         {value}
       </p>

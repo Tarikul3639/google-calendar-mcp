@@ -4,7 +4,7 @@ export const config = {
   site: {
     name: "Google Calendar MCP",
     description:
-      "Connect ChatGPT and other MCP clients to Google Calendar with a hosted MCP server using Google OAuth and per-user access.",
+      "Connect AI clients to Google Calendar, automate event management, simplify scheduling, and manage your calendar securely with Google OAuth and per-user access.",
     url: env.NEXT_PUBLIC_SITE_URL,
     author: {
       name: env.NEXT_PUBLIC_SITE_AUTHOR_NAME,
