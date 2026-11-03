@@ -76,7 +76,7 @@ export default function EndpointConnect() {
           >
             <Image
               src="/google-calendar-icon.png"
-              alt=""
+              alt="Google Calendar MCP"
               width={16}
               height={16}
               className="size-4 rounded-sm"
