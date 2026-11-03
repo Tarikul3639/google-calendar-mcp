@@ -8,7 +8,7 @@ import { CalendarService } from './calendar.service.js';
 @UseGuards(McpAuthGuard)
 @McpController()
 export class CalendarTools {
-  constructor(private readonly calendarService: CalendarService) {}
+  constructor(private readonly calendarService: CalendarService) { }
   // Logger instance for debugging and logging purposes
   readonly logger = new Logger(CalendarTools.name);
 
@@ -299,6 +299,13 @@ export class CalendarTools {
   }
 
   private getClientErrorMessage(error: unknown): string {
+    if (
+      error instanceof Error &&
+      /\binvalid_grant\b/i.test(error.message)
+    ) {
+      return 'Google Calendar authorization is no longer valid. Reconnect your Google Calendar account from the dashboard, then try again.';
+    }
+
     if (error instanceof HttpException && error.getStatus() < 500) {
       return error.message;
     }
