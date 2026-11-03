@@ -1,5 +1,5 @@
 import { Ctx, Payload, RpcException } from '@nestjs/microservices';
-import { Logger, UseGuards } from '@nestjs/common';
+import { HttpException, Logger, UseGuards } from '@nestjs/common';
 import { type McpContext, McpController, Tool } from '@rekog/mcp-nest';
 import { z } from 'zod';
 import { McpAuthGuard } from '../../modules/auth/guards/mcp-auth.guard.js';
@@ -39,18 +39,10 @@ export class CalendarTools {
     this.logger.log(
       `Listing events for user with maxResults=${input.maxResults ?? 10}`,
     );
-    const userId = this.getUserId(ctx);
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.listEvents(userId, input),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_list_events', async () => {
+      const userId = this.getUserId(ctx);
+      return this.calendarService.listEvents(userId, input);
+    });
   }
 
   // ──────────────────────────────────────────────────────────────
@@ -72,18 +64,10 @@ export class CalendarTools {
     @Payload() input: { eventId: string },
     @Ctx() ctx: McpContext,
   ) {
-    const userId = this.getUserId(ctx);
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.findEvent(userId, input.eventId),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_find_event', async () => {
+      const userId = this.getUserId(ctx);
+      return this.calendarService.findEvent(userId, input.eventId);
+    });
   }
 
   // ──────────────────────────────────────────────────────────────
@@ -112,18 +96,10 @@ export class CalendarTools {
     @Payload() input: { startDate: string; endDate: string },
     @Ctx() ctx: McpContext,
   ) {
-    const userId = this.getUserId(ctx);
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.findEventsByDate(userId, input),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_find_events_by_date', async () => {
+      const userId = this.getUserId(ctx);
+      return this.calendarService.findEventsByDate(userId, input);
+    });
   }
 
   // ──────────────────────────────────────────────────────────────
@@ -174,18 +150,10 @@ export class CalendarTools {
     },
     @Ctx() ctx: McpContext,
   ) {
-    const userId = this.getUserId(ctx);
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.createEvent(userId, input),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_create_event', async () => {
+      const userId = this.getUserId(ctx);
+      return this.calendarService.createEvent(userId, input);
+    });
   }
 
   // ──────────────────────────────────────────────────────────────
@@ -247,22 +215,14 @@ export class CalendarTools {
     },
     @Ctx() ctx: McpContext,
   ) {
-    const userId = this.getUserId(ctx);
-    const { eventId, ...updates } = input;
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.updateEvent(userId, {
-              eventId,
-              ...updates,
-            }),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_update_event', async () => {
+      const userId = this.getUserId(ctx);
+      const { eventId, ...updates } = input;
+      return this.calendarService.updateEvent(userId, {
+        eventId,
+        ...updates,
+      });
+    });
   }
 
   // ──────────────────────────────────────────────────────────────
@@ -286,18 +246,10 @@ export class CalendarTools {
     @Payload() input: { eventId: string },
     @Ctx() ctx: McpContext,
   ) {
-    const userId = this.getUserId(ctx);
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: JSON.stringify(
-            await this.calendarService.deleteEvent(userId, input.eventId),
-          ),
-        },
-      ],
-    };
+    return this.runCalendarTool('calendar_delete_event', async () => {
+      const userId = this.getUserId(ctx);
+      return this.calendarService.deleteEvent(userId, input.eventId);
+    });
   }
 
   private getUserId(ctx: McpContext): string {
@@ -312,11 +264,60 @@ export class CalendarTools {
     const userId = request.auth?.extra?.userId;
 
     if (typeof userId !== 'string' || userId.length === 0) {
+      this.logger.error('Authenticated user ID is missing from MCP context');
       throw new RpcException(
         'Authenticated user ID was not found in MCP context.',
       );
     }
 
     return userId;
+  }
+
+  private async runCalendarTool<T>(
+    toolName: string,
+    operation: () => Promise<T>,
+  ) {
+    this.logger.log(`Executing MCP tool: ${toolName}`);
+
+    try {
+      const result = await operation();
+      return {
+        content: [{ type: 'text' as const, text: JSON.stringify(result) }],
+      };
+    } catch (error) {
+      const message = this.getClientErrorMessage(error);
+      const detail = error instanceof Error ? error.message : String(error);
+      this.logger.error(
+        `MCP tool ${toolName} failed: ${detail}`,
+        error instanceof Error ? error.stack : undefined,
+      );
+      return {
+        content: [{ type: 'text' as const, text: message }],
+        isError: true,
+      };
+    }
+  }
+
+  private getClientErrorMessage(error: unknown): string {
+    if (error instanceof HttpException && error.getStatus() < 500) {
+      return error.message;
+    }
+
+    if (error instanceof RpcException) {
+      const payload = error.getError();
+      if (typeof payload === 'string') {
+        return payload;
+      }
+      if (
+        payload !== null &&
+        typeof payload === 'object' &&
+        'message' in payload &&
+        typeof payload.message === 'string'
+      ) {
+        return payload.message;
+      }
+    }
+
+    return 'The calendar request failed due to an unexpected server error.';
   }
 }
